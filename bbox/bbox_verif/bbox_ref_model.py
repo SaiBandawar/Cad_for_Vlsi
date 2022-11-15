@@ -28,7 +28,7 @@ def bbox_rm(instr, rs1, rs2, XLEN):
     elif (instr == 0b01001000000000000001000000110011):  #bclr
        res = rs1 & ~(1 << (rs2 % XLEN))
        valid = '1'
-    elif ((bin(instr)[-32:-26] == '10010') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0010011')):    #bclri
+    elif ((bin(instr)[-31:-26] == '10010') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0010011')):    #bclri
        shamt = int(bin(instr)[-(20+XLEN_log):-20], 2)
        res = rs1 & ~(1 << (shamt % XLEN))
        valid = '1'
@@ -201,7 +201,7 @@ def bbox_rm(instr, rs1, rs2, XLEN):
         res2 = rs1 // 2**shamt
         res = res1 + res2
         valid = '1'
-    elif ((bin(instr)[-32:-26] == '11000') and (bin(instr)[-15:-12] == '101') and (bin(instr)[-7:] == '0010011')):   #rori
+    elif ((bin(instr)[-31:-26] == '11000') and (bin(instr)[-15:-12] == '101') and (bin(instr)[-7:] == '0010011')):   #rori
         shamt = (int(bin(instr)[-(20+XLEN_log):-20], 2))%XLEN
         #shamt = shamt % XLEN
         #res1 = (2**shamt - 1- (rs1 % 2**(shamt))) * 2**(XLEN-shamt)   #smallest shamt bits reversed and shifted up
