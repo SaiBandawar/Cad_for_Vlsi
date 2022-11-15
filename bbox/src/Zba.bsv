@@ -1,5 +1,5 @@
 function Bit#(XLEN) fn_add_uw(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
-  return rs2 + zeroExtend(rs1[31:0]);
+  return rs2 + zeroExtend(rs1[31:0]);                           //  zeroExtend increases the bit width of an expression by padding the most significant end with zeros
 endfunction
 
 function Bit#(XLEN) fn_sh1add(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
