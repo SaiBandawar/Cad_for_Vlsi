@@ -1,0 +1,16 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1668532864" />
+    <testcase classname="test_bbox" file="/home/sai/.pyenv/versions/3.6.10/envs/py36/lib/python3.6/site-packages/cocotb/regression.py" lineno="621" name="TB_001" ratio_time="335.23457357889384" sim_time_ns="30.001" time="0.0894925594329834" />
+    <testcase classname="test_bbox" file="/home/sai/.pyenv/versions/3.6.10/envs/py36/lib/python3.6/site-packages/cocotb/regression.py" lineno="621" name="TB_002" ratio_time="399.3366838877304" sim_time_ns="31.001" time="0.07763123512268066" />
+    <testcase classname="test_bbox" file="/home/sai/.pyenv/versions/3.6.10/envs/py36/lib/python3.6/site-packages/cocotb/regression.py" lineno="621" name="TB_003" ratio_time="489.82516941039086" sim_time_ns="4.000999999999998" time="0.008168220520019531">
+      <failure />
+    </testcase>
+    <testcase classname="test_bbox" file="/home/sai/.pyenv/versions/3.6.10/envs/py36/lib/python3.6/site-packages/cocotb/regression.py" lineno="621" name="TB_004" ratio_time="311.46476927931144" sim_time_ns="4.001000000000005" time="0.012845754623413086">
+      <failure />
+    </testcase>
+    <testcase classname="test_bbox" file="/home/sai/.pyenv/versions/3.6.10/envs/py36/lib/python3.6/site-packages/cocotb/regression.py" lineno="621" name="TB_005" ratio_time="3.9513567450255898" sim_time_ns="1.0009999999999906" time="0.25333070755004883">
+      <failure />
+    </testcase>
+  </testsuite>
+</testsuites>

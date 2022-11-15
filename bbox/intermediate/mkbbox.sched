@@ -1,0 +1,22 @@
+=== Generated schedule for mkbbox ===
+
+Method schedule
+---------------
+Method: ma_inputs
+Ready signal: True
+Conflict-free: mv_output
+Sequenced before (restricted): ma_inputs
+ 
+Method: mv_output
+Ready signal: True
+Conflict-free: ma_inputs, mv_output
+ 
+Rule schedule
+-------------
+Rule: rl_compute
+Predicate: True
+Blocking rules: (none)
+ 
+Logical execution order: rl_compute, ma_inputs, mv_output
+
+======================================
