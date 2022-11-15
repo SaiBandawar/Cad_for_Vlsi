@@ -155,14 +155,16 @@ function Bit#(XLEN) fn_ror(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
   return (rs1 >> shamt) | (rs1 << (fromInteger(valueof(XLEN)) - shamt));
 endfunction
 
-function Bit#(XLEN) fn_rorw(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
+function Bit#(XLEN) fn_rorw(Bit#(XLEN) rs1, Bit#(XLEN) rs2);                // This instruction performs a rotate right on the least-significant word of rs1 by the amount in least-significant
+5 bits of rs2
   int shamt = unpack(zeroExtend(rs2[4:0]));
   Bit#(32)rsn1 = zeroExtend(rs1[31:0]);
   Bit#(32) result = (rsn1 >> shamt) | (rsn1 << (32 - shamt));
   return signExtend(result);
 endfunction
 
-function Bit#(XLEN) fn_rori(Bit#(XLEN) rs1, Bit#(32) instr);
+function Bit#(XLEN) fn_rori(Bit#(XLEN) rs1, Bit#(32) instr);                 // This instruction performs a rotate right of rs1 by the amount in the least-significant log2(XLEN) bits of
+shamt.
   int shamt;
   if(valueof(XLEN)==32)
     shamt = unpack(zeroExtend(instr[4:0]));
@@ -171,7 +173,7 @@ function Bit#(XLEN) fn_rori(Bit#(XLEN) rs1, Bit#(32) instr);
   return (rs1 >> shamt) | (rs1 << (fromInteger(valueof(XLEN)) - shamt));
 endfunction
 
-function Bit#(XLEN) fn_roriw(Bit#(XLEN) rs1, Bit#(32) instr);
+function Bit#(XLEN) fn_roriw(Bit#(XLEN) rs1, Bit#(32) instr);                // This instruction performs a rotate right on the least-significant word of rs1 by the amount in the least significant log2(XLEN) bits of shamt
   int shamt = unpack(zeroExtend(instr[4:0]));
   Bit#(32) rsn1 = zeroExtend(rs1[31:0]);
   Bit#(32) result = ((rsn1 >> shamt) | (rsn1 << (32 - shamt)));
@@ -187,11 +189,11 @@ function Bit#(XLEN) fn_orc_b(Bit#(XLEN) rs1);
   return out;
 endfunction
 
-function Bit#(XLEN) fn_rev8(Bit#(XLEN) rs1);
+function Bit#(XLEN) fn_rev8(Bit#(XLEN) rs1);                                   // Reverses the order of Bytes in rs
   Bit#(XLEN) out = 0;
   int j= fromInteger(valueof(XLEN)-1); 
   for(Integer i=0; i<valueof(XLEN); i=i+8)
-    out = out + ((rs1[j:j-7])<<i);
+    out = out + ((rs1[j:j-7])<<i);                                            // rs1[j:j-7] selects the 8 bits
     j=j-8;
   return out;
 endfunction
