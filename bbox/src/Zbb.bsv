@@ -72,7 +72,7 @@ function Bit#(XLEN) fn_cpopw(Bit#(XLEN) rs1);
   return bitcount;
 endfunction
 
-function Bit#(XLEN) fn_max(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
+function Bit#(XLEN) fn_max(Bit#(XLEN) rs1, Bit#(XLEN) rs2);   // This instruction returns the larger of two signed integers
   Bit#(XLEN) out=rs1;
   if(rs1[valueof(XLEN)-1]==rs2[valueof(XLEN)-1])
     if(rs1 < rs2)
@@ -83,7 +83,7 @@ function Bit#(XLEN) fn_max(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
   return out;
 endfunction
 
-function Bit#(XLEN) fn_maxu(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
+function Bit#(XLEN) fn_maxu(Bit#(XLEN) rs1, Bit#(XLEN) rs2);    // This instruction returns the larger of two unsigned integers.
   Bit#(XLEN) out;
   if(rs1 > rs2)
     out = rs1;
@@ -92,7 +92,7 @@ function Bit#(XLEN) fn_maxu(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
   return out;
 endfunction
 
-function Bit#(XLEN) fn_min(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
+function Bit#(XLEN) fn_min(Bit#(XLEN) rs1, Bit#(XLEN) rs2);     // This instruction returns the smaller of two signed integers.
   Bit#(XLEN) out=rs1;
   if(rs1[valueof(XLEN)-1]==rs2[valueof(XLEN)-1])
     if(rs1 > rs2)
@@ -103,7 +103,7 @@ function Bit#(XLEN) fn_min(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
   return out;
 endfunction
 
-function Bit#(XLEN) fn_minu(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
+function Bit#(XLEN) fn_minu(Bit#(XLEN) rs1, Bit#(XLEN) rs2);       // This instruction returns the smaller of two unsigned integers.
   Bit#(XLEN) out;
   if(rs1 < rs2)
     out = rs1;
@@ -118,19 +118,19 @@ function Bit#(XLEN) fn_sext_b(Bit#(XLEN) rs1);
   return out;
 endfunction
 
-function Bit#(XLEN) fn_sext_h(Bit#(XLEN) rs1);
+function Bit#(XLEN) fn_sext_h(Bit#(XLEN) rs1);    // This instruction sign-extends the least-significant byte in the source to XLEN by copying the most-significant bit in the byte (i.e., bit 7) to all of the more-significant bits
   Bit#(XLEN) out;
   out = signExtend(rs1[15:0]);
   return out;
 endfunction
 
-function Bit#(XLEN) fn_zext_h(Bit#(XLEN) rs1);
+function Bit#(XLEN) fn_zext_h(Bit#(XLEN) rs1);      // This instruction performs an XLEN-wide addition between rs2 and the zero-extended least-significant word of rs1.
   Bit#(XLEN) out;
   out = zeroExtend(rs1[15:0]);
   return out;
 endfunction
 
-function Bit#(XLEN) fn_rol(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
+function Bit#(XLEN) fn_rol(Bit#(XLEN) rs1, Bit#(XLEN) rs2);    // This instruction performs a rotate left of rs1 by the amount in least-significant log2(XLEN) bits of rs2.
   int shamt;
   if(valueof(XLEN)==32)
     shamt = unpack(zeroExtend(rs2[4:0]));
@@ -139,14 +139,14 @@ function Bit#(XLEN) fn_rol(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
   return (rs1 << shamt) | (rs1 >> (fromInteger(valueof(XLEN)) - shamt));
 endfunction
 
-function Bit#(XLEN) fn_rolw(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
+function Bit#(XLEN) fn_rolw(Bit#(XLEN) rs1, Bit#(XLEN) rs2);       // This instruction performs a rotate left on the least-significant word of rs1 by the amount in least-significant 5 bits of r2
  int shamt = unpack(zeroExtend(rs2[4:0]));
   Bit#(32) rsn1 = zeroExtend(rs1[31:0]);
   Bit#(32) result = (rsn1 << shamt) | (rsn1 >> (32 - shamt));
   return signExtend(result);
 endfunction
 
-function Bit#(XLEN) fn_ror(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
+function Bit#(XLEN) fn_ror(Bit#(XLEN) rs1, Bit#(XLEN) rs2);          // This instruction performs a rotate right of rs1 by the amount in least-significant log2(XLEN) bits of rs2
   int shamt;
   if(valueof(XLEN)==32)
     shamt = unpack(zeroExtend(rs2[4:0]));
@@ -155,16 +155,14 @@ function Bit#(XLEN) fn_ror(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
   return (rs1 >> shamt) | (rs1 << (fromInteger(valueof(XLEN)) - shamt));
 endfunction
 
-function Bit#(XLEN) fn_rorw(Bit#(XLEN) rs1, Bit#(XLEN) rs2);                // This instruction performs a rotate right on the least-significant word of rs1 by the amount in least-significant
-5 bits of rs2
+function Bit#(XLEN) fn_rorw(Bit#(XLEN) rs1, Bit#(XLEN) rs2);           // This instruction performs a rotate right on the least-significant word of rs1 by the amount in least-significant 5 bits of r2
   int shamt = unpack(zeroExtend(rs2[4:0]));
   Bit#(32)rsn1 = zeroExtend(rs1[31:0]);
   Bit#(32) result = (rsn1 >> shamt) | (rsn1 << (32 - shamt));
   return signExtend(result);
 endfunction
 
-function Bit#(XLEN) fn_rori(Bit#(XLEN) rs1, Bit#(32) instr);                 // This instruction performs a rotate right of rs1 by the amount in the least-significant log2(XLEN) bits of
-shamt.
+function Bit#(XLEN) fn_rori(Bit#(XLEN) rs1, Bit#(32) instr);         // This instruction performs a rotate right of rs1 by the amount in the least-significant log2(XLEN) bits of shamt
   int shamt;
   if(valueof(XLEN)==32)
     shamt = unpack(zeroExtend(instr[4:0]));
