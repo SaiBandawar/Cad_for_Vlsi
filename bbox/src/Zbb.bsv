@@ -1,13 +1,13 @@
-function Bit#(XLEN) fn_andn(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
-  return rs1 & ~rs2;
+function Bit#(XLEN) fn_andn(Bit#(XLEN) rs1, Bit#(XLEN) rs2);   // The 4 bitwise operator are Unary(~), OR(|), AND(&) and XOR(^)
+  return rs1 & ~rs2;                                           // The unary '~' operator performs the bitwise inversion of rs2
 endfunction
 
 function Bit#(XLEN) fn_orn(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
-  return rs1 | ~rs2;
+  return rs1 | ~rs2;                                           // Bitwise OR operation betwenn rs1 and bitwise inversion of rs2
 endfunction
 
 function Bit#(XLEN) fn_xnor(Bit#(XLEN) rs1, Bit#(XLEN) rs2);
-  return ~(rs1 ^ rs2);
+  return ~(rs1 ^ rs2);                                         // Bitwise Inversion of Bitwise XOR between rs1 and rs2
 endfunction
 
 function Bit#(XLEN) fn_clz(Bit#(XLEN) rs1);
