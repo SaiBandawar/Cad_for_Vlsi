@@ -165,14 +165,14 @@ endfunction
 function Bit#(XLEN) fn_rori(Bit#(XLEN) rs1, Bit#(32) instr);         // This instruction performs a rotate right of rs1 by the amount in the least-significant log2(XLEN) bits of shamt
   int shamt;
   if(valueof(XLEN)==32)
-    shamt = unpack(zeroExtend(instr[4:0]));
+    shamt = unpack(zeroExtend(instr[24:20]));
   else
-    shamt = unpack(zeroExtend(instr[5:0]));
+    shamt = unpack(zeroExtend(instr[25:20]));
   return (rs1 >> shamt) | (rs1 << (fromInteger(valueof(XLEN)) - shamt));
 endfunction
 
 function Bit#(XLEN) fn_roriw(Bit#(XLEN) rs1, Bit#(32) instr);                // This instruction performs a rotate right on the least-significant word of rs1 by the amount in the least significant log2(XLEN) bits of shamt
-  int shamt = unpack(zeroExtend(instr[4:0]));
+  int shamt = unpack(zeroExtend(instr[24:0]));
   Bit#(32) rsn1 = zeroExtend(rs1[31:0]);
   Bit#(32) result = ((rsn1 >> shamt) | (rsn1 << (32 - shamt)));
   return signExtend(result[31:0]);
