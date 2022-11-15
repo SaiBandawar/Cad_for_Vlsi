@@ -28,28 +28,28 @@ def bbox_rm(instr, rs1, rs2, XLEN):
     elif (instr == 0b01001000000000000001000000110011):  #bclr
        res = rs1 & ~(1 << (rs2 % XLEN))
        valid = '1'
-    elif (instr == 0b01001000000000000001000000010011):  #(bin(instr)[-32:-26] == '0b10010') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0010011')):    #bclri
+    elif ((bin(instr)[-32:-26] == '10010') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0010011')):    #bclri
        shamt = int(bin(instr)[-(20+XLEN_log):-20], 2)
        res = rs1 & ~(1 << (shamt % XLEN))
        valid = '1'
     elif (instr == 0b01001000000000000101000000110011):  #bext
        res = (rs1 >> rs2 % XLEN) & 1
        valid = '1'
-    elif (instr ==  0b01001000000000000101000000010011): # (bin(instr)[-31:-26] == '0b10010') and (bin(instr)[-15:-12] == '101') and (bin(instr)[-7:] == '0010011')):    #bexti
+    elif ((bin(instr)[-31:-26] == '10010') and (bin(instr)[-15:-12] == '101') and (bin(instr)[-7:] == '0010011')):    #bexti
        shamt = int(bin(instr)[-(20+XLEN_log):-20], 2)
        res = (rs1 >> shamt % XLEN) & 1
        valid = '1'
     elif (instr == 0b01101000000000000001000000110011):  #binv
        res = rs1 ^ (1 << (rs2 % XLEN))
        valid = '1'
-    elif (instr== 0b01101000000000000001000000010011): #(bin(instr)[-31:-26] == '0b11010') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0010011')):    #binvi
+    elif ((bin(instr)[-31:-26] == '11010') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0010011')):    #binvi
        shamt = int(bin(instr)[-(20+XLEN_log):-20], 2)
        res = rs1 ^ (1 << (shamt % XLEN))
        valid = '1'
     elif (instr == 0b00101000000000000001000000110011):  #bset
        res = rs1 | (1 << (rs2 % XLEN))
        valid = '1'
-    elif (instr == 0b00101000000000000001000000010011): # (bin(instr)[-31:-26] == '0b01010') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0010011')):      #bseti
+    elif ((bin(instr)[-31:-26] == '01010') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0010011')):      #bseti
        shamt = int(bin(instr)[-(20+XLEN_log):-20], 2)
        res = rs1 | (1 << (shamt % XLEN))
        valid = '1'
@@ -201,7 +201,7 @@ def bbox_rm(instr, rs1, rs2, XLEN):
         res2 = rs1 // 2**shamt
         res = res1 + res2
         valid = '1'
-    elif (instr == 0b01100000000000000101000000010011):# (bin(instr)[-32:-26] == '0b11000') and (bin(instr)[-15:-12] == '101') and (bin(instr)[-7:] == '0010011')):   #rori
+    elif ((bin(instr)[-32:-26] == '11000') and (bin(instr)[-15:-12] == '101') and (bin(instr)[-7:] == '0010011')):   #rori
         shamt = (int(bin(instr)[-(20+XLEN_log):-20], 2))%XLEN
         #shamt = shamt % XLEN
         #res1 = (2**shamt - 1- (rs1 % 2**(shamt))) * 2**(XLEN-shamt)   #smallest shamt bits reversed and shifted up
@@ -209,7 +209,7 @@ def bbox_rm(instr, rs1, rs2, XLEN):
         res2 = rs1 // 2**shamt
         res = res1 + res2
         valid = '1'
-    elif (instr ==0b01100000000000000101000000011011):# (bin(instr)[-31:-26] == '0b11000') and (bin(instr)[-15:-12] == '101') and (bin(instr)[-7:] == '0011011') and (XLEN==64)):   #roriw
+    elif ((bin(instr)[-31:-26] == '11000') and (bin(instr)[-15:-12] == '101') and (bin(instr)[-7:] == '0011011') and (XLEN==64)):   #roriw
         shamt = int(bin(instr)[-25:-20], 2)
         rs1 = rs1 % 2**32
         shamt = shamt % 2**5
@@ -257,7 +257,7 @@ def bbox_rm(instr, rs1, rs2, XLEN):
     elif (instr == 0b00100000000000000110000000111011 and XLEN==64):    #sh3add_uw
        res = (rs2 + ((rs1 % 2**32) << 3)) % 2**XLEN
        valid = '1'
-    elif ((bin(instr)[-32:-26] == '0b10') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0011011') and (XLEN==64)):     #SLLI_UW
+    elif ((bin(instr)[-32:-26] == '10') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0011011') and (XLEN==64)):     #SLLI_UW
        shamt = int(bin(instr)[-26:-20], 2)
        res = ((rs1 % 2**32) << shamt) % 2**XLEN
        valid = '1'
