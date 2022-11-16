@@ -73,13 +73,17 @@ function Bit#(XLEN) fn_cpopw(Bit#(XLEN) rs1);
 endfunction
 
 function Bit#(XLEN) fn_max(Bit#(XLEN) rs1, Bit#(XLEN) rs2);   // This instruction returns the larger of two signed integers
-  Bit#(XLEN) out=rs1;
+  Bit#(XLEN) out;
   if(rs1[valueof(XLEN)-1]==rs2[valueof(XLEN)-1])
     if(rs1 < rs2)
       out = rs2;
+    else
+      out=rs1
   else
     if(rs2[valueof(XLEN)-1] == 0)
       out = rs2; 
+    else
+      out = rs1;
   return out;
 endfunction
 
@@ -97,9 +101,13 @@ function Bit#(XLEN) fn_min(Bit#(XLEN) rs1, Bit#(XLEN) rs2);     // This instruct
   if(rs1[valueof(XLEN)-1]==rs2[valueof(XLEN)-1])
     if(rs1 > rs2)
       out = rs2;
+    else 
+      out = rs1;
   else
     if(rs2[valueof(XLEN)-1] == 1)
       out = rs2; 
+    else
+      out = rs1
   return out;
 endfunction
 
@@ -190,8 +198,9 @@ endfunction
 function Bit#(XLEN) fn_rev8(Bit#(XLEN) rs1);                                   // Reverses the order of Bytes in rs
   Bit#(XLEN) out = 0;
   int j= fromInteger(valueof(XLEN)-1); 
-  for(Integer i=0; i<valueof(XLEN); i=i+8)
+  for(Integer i=0; i<valueof(XLEN); i=i+8) begin
     out = out + ((rs1[j:j-7])<<i);                                            // rs1[j:j-7] selects the 8 bits
     j=j-8;
+  end
   return out;
 endfunction
