@@ -49,7 +49,7 @@ def bbox_rm(instr, rs1, rs2, XLEN):
     elif (instr == 0b00101000000000000001000000110011):  #bset
        res = rs1 | (1 << (rs2 % XLEN))
        valid = '1'
-    elif ((bin(instr)[-31:-26] == '01010') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0010011')):      #bseti
+    elif ((bin(instr)[-30:-26] == '1010') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0010011')):      #bseti
        shamt = int(bin(instr)[-(20+XLEN_log):-20], 2)
        res = rs1 | (1 << (shamt % XLEN))
        valid = '1'
