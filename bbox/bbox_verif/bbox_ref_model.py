@@ -165,7 +165,7 @@ def bbox_rm(instr, rs1, rs2, XLEN):
            if(i==0):
                out = out + rs1_new[-8:]
            else:
-               out = out + (rs1_new[-(i+8):-i])*(2**i)
+               out = out + (rs1_new[-(i+8):-i])
         res = int('0b'+out, 2)
         valid = '1'
     elif ((instr == 0b01101001100000000101000000010011) and XLEN ==32):#REV8_32
@@ -175,7 +175,7 @@ def bbox_rm(instr, rs1, rs2, XLEN):
            if(i==0):
                out = out + rs1_new[-8:]
            else:
-               out = out + (rs1_new[-(i+8):-i])*(2**i)
+               out = out + (rs1_new[-(i+8):-i])
         res = int('0b'+out, 2)
         valid = '1'
     elif (instr == 0b01100000000000000001000000110011):      #rol
@@ -257,7 +257,7 @@ def bbox_rm(instr, rs1, rs2, XLEN):
     elif (instr == 0b00100000000000000110000000111011 and XLEN==64):    #sh3add_uw
        res = (rs2 + ((rs1 % 2**32) << 3)) % 2**XLEN
        valid = '1'
-    elif ((bin(instr)[-32:-26] == '10') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0011011') and (XLEN==64)):     #SLLI_UW
+    elif ((bin(instr)[-32:-26] == '0b10') and (bin(instr)[-15:-12] == '001') and (bin(instr)[-7:] == '0011011') and (XLEN==64)):     #SLLI_UW
        shamt = int(bin(instr)[-26:-20], 2)
        res = ((rs1 % 2**32) << shamt) % 2**XLEN
        valid = '1'
